@@ -9,7 +9,8 @@ using Microsoft.Extensions.Logging;
 
 namespace TokenAuth.Controllers
 {
-    [EnableCors("CorsPolicy")]
+    //[EnableCors("CorsPolicy")]
+    [EnableCors()]
     [ApiController]
     [Route("[controller]")]
     [Authorize]

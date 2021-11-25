@@ -70,11 +70,12 @@ namespace TokenAuth
                 };
             });
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            //services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader();
+            //}));
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +91,10 @@ namespace TokenAuth
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors();
+            //app.UseCors();
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader()
+            );
 
             app.UseAuthentication();
 

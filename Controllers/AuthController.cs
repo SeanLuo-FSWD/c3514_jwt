@@ -12,7 +12,8 @@ using TokenAuth.ViewModels;
 
 namespace TokenAuth.Controllers
 {
-    [EnableCors("CorsPolicy")]
+    //[EnableCors("CorsPolicy")]
+    [EnableCors()]
     public class AuthController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -28,6 +29,10 @@ namespace TokenAuth.Controllers
         [HttpPost]
         public async Task<ActionResult> InsertUser([FromBody] RegisterViewModel model)
         {
+
+            Console.WriteLine("model below from register");
+            Console.WriteLine(model.Email);
+            Console.WriteLine(model.Password);
             var user = new IdentityUser
             {
                 Email = model.Email,
@@ -46,6 +51,10 @@ namespace TokenAuth.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginViewModel model)
         {
+            Console.WriteLine("model below from login");
+            Console.WriteLine(model.Username);
+            Console.WriteLine(model.Password);
+
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
@@ -72,6 +81,7 @@ namespace TokenAuth.Controllers
                   });
             }
             return Unauthorized();
+
         }
     }
 
